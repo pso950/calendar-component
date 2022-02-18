@@ -102,7 +102,7 @@ public class DateCell extends FocusableComplexPanel
         }
     }
 
-    public DateCell(WeekGrid parent, Date date, Map<Long, CalTimeSlot> timeSlotStyles) {
+    public DateCell(WeekGrid parent, Date date, Map<Long, CalTimeSlot> timeSlotStyles, boolean isWeekendDay) {
         weekgrid = parent;
         Element mainElement = DOM.createDiv();
         setElement(mainElement);
@@ -110,6 +110,9 @@ public class DateCell extends FocusableComplexPanel
         setDate(date);
 
         addStyleName("v-calendar-day-times");
+        if (isWeekendDay) {
+            addStyleName("v-calendar-weekend-day-times");
+        }
 
         handlers = new LinkedList<>();
 
