@@ -15,6 +15,7 @@
  */
 package org.vaadin.addon.calendar.client.ui;
 
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -546,9 +547,9 @@ public class VCalendar extends Composite implements VHasDropHandler {
                 isToday = true;
             }
 
-            dayToolbar.add(realDayNames[dayOfWeek - 1], date, day.getLocalizedDateFormat(), isToday ? "today" : null);
+            dayToolbar.add(realDayNames[dayOfWeek - 1], date, day.getLocalizedDateFormat(), isToday ? "today" : null, isWeekendDay(dayOfWeek));
             weeklyLongEvents.addDate(date);
-            weekGrid.addDate(date, day.getStyledSlots());
+            weekGrid.addDate(date, day.getStyledSlots(), isWeekendDay(dayOfWeek));
 
             if (isToday) {
                 weekGrid.setToday(date, today);
@@ -556,6 +557,10 @@ public class VCalendar extends Composite implements VHasDropHandler {
         }
 
         dayToolbar.addNextButton();
+    }
+
+    private boolean isWeekendDay(int dayOfWeek) {
+        return dayOfWeek == DayOfWeek.SATURDAY.getValue() || dayOfWeek == DayOfWeek.SUNDAY.getValue();
     }
 
     /**
@@ -625,6 +630,10 @@ public class VCalendar extends Composite implements VHasDropHandler {
                 cell.addStyleDependentName("prev-month");
             } else if (lastDayFound) {
                 cell.addStyleDependentName("next-month");
+            };
+
+            if (isWeekendDay(dayOfWeek)) {
+                cell.addStyleDependentName("weekend");
             }
 
             if (dayOfMonth >= 1 && !monthNameDrawn) {
