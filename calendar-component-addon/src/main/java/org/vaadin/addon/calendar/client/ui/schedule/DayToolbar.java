@@ -93,13 +93,17 @@ public class DayToolbar extends HorizontalPanel implements ClickHandler {
         }
     }
 
-    public void add(String dayName, final Date date, String localized_date_format, String extraClass) {
+    public void add(String dayName, final Date date, String localized_date_format, String extraClass, boolean isWeekendDay) {
 
         HTML l = new HTML(("<span>" + dayName + "</span> " + localized_date_format).trim());
         l.setStylePrimaryName("v-calendar-header-day");
 
         if (extraClass != null) {
             l.addStyleDependentName(extraClass);
+        }
+
+        if (isWeekendDay) {
+            l.addStyleDependentName("weekend");
         }
 
         if (verticalSized) {
