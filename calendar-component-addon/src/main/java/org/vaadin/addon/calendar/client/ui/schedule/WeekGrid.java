@@ -124,8 +124,8 @@ public class WeekGrid extends SimplePanel {
         return width;
     }
 
-    public void addDate(Date d, Map<Long, CalTimeSlot> timeSlotStyles) {
-        final DateCell dc = new DateCell(this, d, timeSlotStyles);
+    public void addDate(Date d, Map<Long, CalTimeSlot> timeSlotStyles, boolean isWeekendDay) {
+        final DateCell dc = new DateCell(this, d, timeSlotStyles, isWeekendDay);
         dc.setDisabled(isDisabled());
         dc.setHorizontalSized(isHorizontalScrollable() || width < 0);
         dc.setVerticalSized(isVerticalScrollable());
